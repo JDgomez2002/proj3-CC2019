@@ -99,3 +99,36 @@ class TuringMachine(object):
       return True
     else:
       return False
+    
+
+  def runMachine(self):
+    machineNumber = self.__curr
+    if machineNumber == 0:
+      machineNumber = 0
+
+    initialTape = "\nInput -> " + Colors.GREEN + self.getTape() + Colors.CLEAR
+    print(Colors.BOLD + "\n$ String #" + str(machineNumber+1) + ": " + Colors.CLEAR + Colors.UNDERLINE + self.getTape() + Colors.CLEAR + "\n" )
+    
+    while not self.final():
+      self.step()
+
+    print(initialTape)
+    print("Output ->", end=" ")
+    tape = self.getTape()
+    tape = tape.replace(self.__blankSymbol, '')
+    print(Colors.GREEN + tape + Colors.CLEAR)
+
+    if (self.__acceptedStates):
+      if self.__currentState in self.__acceptedStates:
+        print(Colors.BLUE + "Accepted string!" + Colors.CLEAR)
+      else:
+        print(Colors.RED + "String not accepted!" + Colors.CLEAR)
+
+    machineNumber += 1
+
+    if self.nextStringAvailable():
+      print("\n************************************************")
+      self.runMachine()
+    else:
+      print()
+      return # end of the machine
