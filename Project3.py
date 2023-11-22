@@ -132,3 +132,31 @@ class TuringMachine(object):
     else:
       print()
       return # end of the machine
+
+def createTuringMachine(filename) -> TuringMachine:
+  with open(filename, 'r') as yaml_file:
+    data = yaml.load(yaml_file, Loader = yaml.FullLoader)
+    initial = data['q_states']['initial']
+    final = {val for val in data['q_states']['final']}
+    acc = {val for val in data['q_states']['accept']}
+    blankSymbol = data['blank']
+    transitionFunction = {}
+    simulationStrings = data['simulation_strings']
+    for params in data['delta']:
+      transitionFunction[(params['params']['initial_state'], params['params']['tape_input'])] = (params['output']['final_state'], params['output']['tape_output'], params['output']['tape_displacement'])
+    return TuringMachine(simulationStrings, blankSymbol, initial, final, transitionFunction, acc)
+
+# MAIN
+print("\n************************************************")
+print("************ TURING MACHINE 1 ******************")
+print("************************************************")
+turingMachine1 = createTuringMachine("./TM1.yaml")
+turingMachine1.runMachine()
+
+print("************************************************")
+print("************ TURING MACHINE 2 ******************")
+print("************************************************")
+turingMachine2 = createTuringMachine("./TM2.yaml")
+turingMachine2.runMachine()
+
+print("************************************************\n")
