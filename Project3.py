@@ -78,3 +78,24 @@ class TuringMachine(object):
 
   def getTape(self): 
     return str(self.__tape)
+  
+  
+  def step(self):
+    char_under_head = self.__tape[self.__headPosition]
+    self.generateDescription(True)
+    x = (self.__currentState, char_under_head)
+    if x in self.__transitionFunction:
+      y = self.__transitionFunction[x]
+      self.__tape[self.__headPosition] = y[1]
+      if y[2] == "R":
+        self.__headPosition += 1
+      elif y[2] == "L":
+        self.__headPosition -= 1
+      self.__currentState = y[0]        
+    self.generateDescription(False)
+
+  def final(self):
+    if self.__currentState in self.__finalStates:
+      return True
+    else:
+      return False
