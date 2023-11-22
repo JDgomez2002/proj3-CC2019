@@ -99,7 +99,15 @@ class TuringMachine(object):
       return True
     else:
       return False
-    
+
+  def generateDescription(self, first:bool):
+    if (first):
+      self.__immediate_description = copy.deepcopy(self.__tape)
+      self.__immediate_description[self.__headPosition]= Colors.RED +  self.__currentState + Colors.CLEAR +self.__immediate_description[self.__headPosition]
+    else:
+      immediate_description = copy.deepcopy(self.__tape)
+      immediate_description[self.__headPosition]= Colors.RED +  self.__currentState + Colors.CLEAR+self.__immediate_description[self.__headPosition]
+      print(str(self.__immediate_description)+" -> "+str(immediate_description))
 
   def runMachine(self):
     machineNumber = self.__curr
