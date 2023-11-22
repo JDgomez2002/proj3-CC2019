@@ -275,6 +275,6 @@ delta:
       tape_output: 'B'
       tape_displacement: 'R'  
 simulation_strings:
+- 'aaaaaaab'
 - 'abababab'
 - 'baabaabb'
-- 'aaaaaaab'

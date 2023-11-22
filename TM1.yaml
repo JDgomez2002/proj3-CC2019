@@ -250,5 +250,5 @@ delta:
       tape_displacement: 'R'  
 simulation_strings:
 - 'abababab'
-- 'aabb'
 - 'abaabb'
+- 'aabb'
